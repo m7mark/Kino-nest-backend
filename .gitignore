@@ -7,7 +7,7 @@ node_modules/
 .pnp.js
 .idea
 .eslintcache
-/uploads
+
 front/coverage
 /add
 
