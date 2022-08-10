@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module'
 
 import { TypegooseModule } from 'nestjs-typegoose'
 import { RatingModule } from './rating/rating.module'
+import { CloudinaryFileModule } from './cloudinary-file/cloudinary-file.module'
 
 @Module({
 	imports: [
@@ -29,6 +30,7 @@ import { RatingModule } from './rating/rating.module'
 		AuthModule,
 		FilesModule,
 		RatingModule,
+		CloudinaryFileModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
