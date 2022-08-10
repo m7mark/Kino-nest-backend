@@ -22,7 +22,7 @@ export class CloudinaryFileController {
 	async uploadFile(
 		@UploadedFile() file: Express.Multer.File,
 		@Query('folder') folder?: string
-	): Promise<CloudinaryFileResponse> {
+	): Promise<CloudinaryFileResponse[]> {
 		return await this.cloudinaryFileService.uploadFile(file, folder)
 	}
 }

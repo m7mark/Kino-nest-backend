@@ -9,16 +9,18 @@ export class CloudinaryFileService {
 	async uploadFile(
 		file: Express.Multer.File,
 		folder: string = 'default'
-	): Promise<CloudinaryFileResponse> {
+	): Promise<CloudinaryFileResponse[]> {
 		return new Promise((resolve) => {
 			const fileName = `${folder}-${file.originalname}`
 			const upload = v2.uploader.upload_stream(
 				getCloudinaryUploadOptions(fileName),
 				(_, result?: UploadApiResponse) => {
-					const res = {
-						url: result.secure_url,
-						name: result.original_filename,
-					}
+					const res = [
+						{
+							url: result.secure_url,
+							name: result.original_filename,
+						},
+					]
 					return resolve(res)
 				}
 			)
