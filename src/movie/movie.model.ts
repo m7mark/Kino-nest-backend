@@ -27,6 +27,9 @@ export class MovieModel extends TimeStamps {
 	title: string
 
 	@prop()
+	description: string
+
+	@prop()
 	parameters: Parameter
 
 	@prop({ default: 4.0 })
