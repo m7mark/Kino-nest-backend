@@ -41,7 +41,7 @@ export class MovieModel extends TimeStamps {
 	@prop({ default: 0 })
 	countOpened?: number
 
-	@prop({ unique: true })
+	@prop()
 	videoUrl: string
 
 	@prop({ ref: () => ActorModel })
