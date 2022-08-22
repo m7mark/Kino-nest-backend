@@ -1,6 +1,10 @@
 import {
 	Controller,
+	FileTypeValidator,
 	HttpCode,
+	MaxFileSizeValidator,
+	NotFoundException,
+	ParseFilePipe,
 	Post,
 	Query,
 	UploadedFile,
@@ -18,11 +22,21 @@ export class CloudinaryFileController {
 	@Post()
 	@HttpCode(200)
 	@Auth('admin')
-	@UseInterceptors(FileInterceptor('image'))
-	async uploadFile(
-		@UploadedFile() file: Express.Multer.File,
+	@UseInterceptors(FileInterceptor('file'))
+	async uploadImage(
+		@UploadedFile(
+			new ParseFilePipe({
+				validators: [new MaxFileSizeValidator({ maxSize: 100000000 })],
+			})
+		)
+		file: Express.Multer.File,
 		@Query('folder') folder?: string
 	): Promise<CloudinaryFileResponse[]> {
-		return await this.cloudinaryFileService.uploadFile(file, folder)
+		const uploadFileResponse = await this.cloudinaryFileService.uploadFile(
+			file,
+			folder
+		)
+		if (!uploadFileResponse) throw new NotFoundException('Upload file failed')
+		return uploadFileResponse
 	}
 }

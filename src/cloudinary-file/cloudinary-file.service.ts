@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common'
-import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { UploadApiResponse, v2 } from 'cloudinary'
 import { getCloudinaryUploadOptions } from 'src/config/cloudinary.config'
 import { CloudinaryFileResponse } from './dto/cloudinary-file.response'
 import { bufferToStream } from './utils/buffer'
@@ -8,17 +8,24 @@ import { bufferToStream } from './utils/buffer'
 export class CloudinaryFileService {
 	async uploadFile(
 		file: Express.Multer.File,
-		folder: string = 'default'
+		folder: string = 'kino'
 	): Promise<CloudinaryFileResponse[]> {
-		return new Promise((resolve) => {
+		let fileType: string
+		if (file.mimetype.includes('image')) {
+			fileType = 'image'
+		} else if (file.mimetype.includes('video')) {
+			fileType = 'video'
+		} else return
+		return new Promise((resolve, reject) => {
 			const fileName = `${folder}-${file.originalname}`
 			const upload = v2.uploader.upload_stream(
-				getCloudinaryUploadOptions(fileName),
-				(_, result?: UploadApiResponse) => {
+				getCloudinaryUploadOptions(fileName, fileType),
+				(err, result?: UploadApiResponse) => {
+					if (err) reject(err.message)
 					const res = [
 						{
-							url: result.secure_url,
-							name: result.original_filename,
+							url: result?.secure_url,
+							name: result?.original_filename,
 						},
 					]
 					return resolve(res)
