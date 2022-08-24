@@ -63,7 +63,7 @@ export class GenreService {
 					_id: String(genre._id),
 					title: genre.name,
 					slug: genre.slug,
-					image: moviesByGenre[0].bigPoster,
+					image: moviesByGenre[0]?.bigPoster,
 				}
 
 				return result
