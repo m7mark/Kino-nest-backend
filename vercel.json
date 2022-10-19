@@ -4,10 +4,10 @@
 	"github": {
 		"enabled": false
 	},
-	"rewrites": [
+	"routes": [
 		{
-			"source": "/(.*)",
-			"destination": "main.js"
+			"src": "/(.*)",
+			"dest": "/main.js"
 		}
 	]
 }
