@@ -1,4 +1,4 @@
-# Online cinema app
+# Online cinema app - Nest.js backend
 
 `Nest`, `MongoDB`, `Cloudinary`
 
