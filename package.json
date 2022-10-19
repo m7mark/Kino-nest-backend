@@ -1,5 +1,5 @@
 {
-	"name": "movie-app-back-end",
+	"name": "kino-api",
 	"description": "Movie application",
 	"version": "0.0.1",
 	"private": true,
