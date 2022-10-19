@@ -7,12 +7,12 @@
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "/main.js"
+			"destination": "dist/main.js"
 		}
 	],
 	"builds": [
 		{
-			"src": "/main.js",
+			"src": "dist/main.js",
 			"use": "@vercel/node"
 		}
 	]
